@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/pages/login_page.dart';
+import 'package:food_app/utils/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,6 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: MyRoutes.loginRoute,
+      routes: {
+        MyRoutes.loginRoute: (context)=>LoginPage(),
+      }
+    );
   }
 }
