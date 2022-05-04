@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/pages/google_signin.dart';
 import 'package:food_app/pages/login_page.dart';
 import 'package:food_app/utils/routes.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: MyRoutes.loginRoute,
       routes: {
         MyRoutes.loginRoute: (context)=>LoginPage(),
+        MyRoutes.googleRoute: (context)=>GoogleSignIn(),
       }
     );
   }
