@@ -24,11 +24,17 @@ class _GoogleSignInState extends State<GoogleSignIn> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
       child: Column(children: [
-        SignInButton(Buttons.Google, onPressed: () async {
-          await signInMethod(context);
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
-        })
+        Container(height: 40, width: 200,
+          child: SignInButton(
+            Buttons.Google,
+            onPressed: () async {
+              await signInMethod(context);
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            },
+            
+          ),
+        ),
       ]),
     );
   }
