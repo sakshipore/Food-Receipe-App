@@ -1,53 +1,50 @@
-import 'package:flutter/material.dart';
-import 'package:food_app/pages/search_page.dart';
-import 'package:food_app/services/modal.dart';
-import 'package:food_app/widgets/drawer.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:food_app/services/modal.dart';
 import 'package:http/http.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+class SearchPage extends StatefulWidget {
+  final String query;
+  SearchPage(this.query);
   @override
-  State<HomePage> createState() => _HomePageState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SearchPageState extends State<SearchPage> {
   bool loading = true;
   TextEditingController search = TextEditingController();
 
-  List<ReceipeModal> receipeList = <ReceipeModal>[];
+  List<ReceipeModal> recipeList = <ReceipeModal>[];
 
-  getreceipe(String query) async {
+  getrecipe(String query) async {
     var url = Uri.parse(
         "https://api.edamam.com/api/recipes/v2?type=public&q=$query&app_id=8825d859&app_key=36baa48af1a2eed0e8099220fd002940");
     var response = await get(url);
     Map data = jsonDecode(response.body);
     data["hits"].forEach((element) {
-      ReceipeModal receipeModal = ReceipeModal();
-      receipeModal = ReceipeModal.fromMap(element["recipe"]);
-      receipeList.add(receipeModal);
+      ReceipeModal recipeModal = ReceipeModal();
+      recipeModal = ReceipeModal.fromMap(element["recipe"]);
+      recipeList.add(recipeModal);
       setState(() {
         loading = false;
       });
     });
 
-    receipeList.forEach((receipe) {
-      print(receipe.applabel);
+    recipeList.forEach((recipe) {
+      print(recipe.applabel);
     });
   }
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    getreceipe("chicken");
+    getrecipe(widget.query);
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      drawer: MyDrawer(),
       body: Stack(
         children: [
           Container(
@@ -75,12 +72,13 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         GestureDetector(
+                          
                           onTap: () {
                             if ((search.text).replaceAll("", " ") == "") {
                               print("Blank Search");
                             } else {
                               print("clicked");
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
@@ -109,31 +107,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "What Do You Want To Cook Today ?",
-                        style: TextStyle(fontSize: 28, color: Colors.white),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Let's Cook Something New!!",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
                   child: loading
                       ? Center(child: CircularProgressIndicator())
                       : ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: receipeList.length,
+                          itemCount: recipeList.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {},
@@ -148,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.network(
-                                        receipeList[index].appimgurl,
+                                        recipeList[index].appimgurl,
                                         fit: BoxFit.cover,
                                         width: double.infinity,
                                         height: 200,
@@ -165,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                                           color: Colors.black26,
                                         ),
                                         child: Text(
-                                          receipeList[index].applabel,
+                                          recipeList[index].applabel,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20),
@@ -194,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                                                 color: Colors.white,
                                               ),
                                               Text(
-                                                receipeList[index]
+                                                recipeList[index]
                                                     .appcalories
                                                     .toString()
                                                     .substring(0, 6),

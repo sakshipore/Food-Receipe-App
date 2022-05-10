@@ -34,3 +34,10 @@ Future<User?> signInWithGoogle() async {
   LocalDataSaver.saveMail(user.email.toString());
   return user;
 }
+
+Future<String> signOut() async {
+  LocalDataSaver.saveLoginData(false);
+  await googleSignIn.signOut();
+  await _auth.signOut();
+  return "SUCCESS";
+}

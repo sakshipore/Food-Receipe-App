@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/localdb.dart';
+import 'package:food_app/pages/home_page.dart';
 import 'package:food_app/utils/routes.dart';
-
+import 'package:food_app/constant.dart';
 import 'google_signin.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,6 +33,28 @@ class _LoginPageState extends State<LoginPage> {
         ButtonChange = false;
       });
     }
+  }
+
+  Future<void> checkuserlog() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+    if (user != null) {
+      constant.name = (await LocalDataSaver.getName())!;
+      constant.email = (await LocalDataSaver.getEmail())!;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkuserlog();
   }
 
   @override
