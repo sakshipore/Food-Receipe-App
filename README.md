@@ -1,6 +1,8 @@
 # Food Receipe App
 
-A new Flutter project.
+Tech Stack used:- 
+`Flutter`
+`Firebase`
 
 ## About the Application
 
