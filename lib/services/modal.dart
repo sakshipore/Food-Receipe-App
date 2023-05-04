@@ -18,6 +18,4 @@ class ReceipeModal {
       appurl: receipe["url"],
     );
   }
-
- 
 }

@@ -1,16 +1,16 @@
-# food_app
+# Food Receipe App
 
 A new Flutter project.
 
-## Getting Started
+## About the Application
 
-This project is a starting point for a Flutter application.
+Food Recipe App using **Flutter** and **Firebase** which fetches the data from **Edamam API** and displays to the user. 
+* The data is stored in the Firebase, and then display it on the user    interface. 
+* It also has a *search functionality* which searches particular recipe. 
+* It also has *Google Authentication* for sigining in and sigining out from the application.
 
-A few resources to get you started if this is your first Flutter project:
+Following is the link to the recorded video of the application:- 
+[Link](https://drive.google.com/file/d/1mAEOLspFipNLcsEh-JzTZk34Kbpb0W_I/view?usp=sharing)
+ 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

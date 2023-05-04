@@ -7,13 +7,21 @@ import 'package:food_app/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   bool isLogIn = false;
+
   getLoggedInState() async {
     await LocalDataSaver.getLogData().then((value) => {
           setState(() {
@@ -24,11 +32,9 @@ class MyApp extends StatelessWidget {
 
   @override
   void initState() {
-    initState();
+    super.initState();
     getLoggedInState();
   }
-
-  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +44,7 @@ class MyApp extends StatelessWidget {
         routes: {
           MyRoutes.loginRoute: (context) => LoginPage(),
           MyRoutes.googleRoute: (context) => GoogleSignIn(),
-          MyRoutes.homeRoute:(context) => HomePage(),
+          MyRoutes.homeRoute: (context) => HomePage(),
         });
   }
-
-  setState(Null Function() param0) {}
 }
